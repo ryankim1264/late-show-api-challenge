@@ -1,112 +1,108 @@
-LATE SHOW API
+Late Show API Challenge
 
-This is a backend flask appliction for a late Night Tv show system.
-
-SETUP INSTRUCTIONS
-
-
-Prerequisites
-PostgreSQL
-Install PostgreSQL and ensure it is running on your machine.
-Download PostgreSQL
-
-Virtual Environment (recommended)
-Create and activate a virtual environment:
-
-
-python3 -m venv venv
-
-
-How to Run
-Install Dependencies
-
-pip install -r requirements.txt
-Database Setup
-Create the database in PostgreSQL (if not created):
-
-
-createdb late_show_db
-Run migrations:
-
-flask db upgrade
-Seed the database with initial data:
-
-
-python3 -m server.seed
-Run the Flask App
-
-flask run
-The app will run on http://localhost:5000 .
-
---
-
-Authentication Flow
-Register
-POST /register
-Request Body:
-
-
-
-{
-  "username": "your_username",
-  "password": "your_password"
-}
+A Flask-based RESTful API for managing late night talk show guests, episodes, and appearances.
 
 ---
-Login
-POST /login
-Request Body:
+
+## Setup Instructions
+
+### Prerequisites
+
+- Python 3.8+
+- PostgreSQL
+- pip (Python package manager)
+
+### Clone the Repo
+
+```bash
+git clone https://github.com/yourusername/late-show-api-challenge.git
+cd late-show-api-challenge
+
+Create Virtual Environment
+bash
+Copy
+Edit
+python3 -m venv venv
+source venv/bin/activate 
+
+ How to Run
+Create and Migrate Database
+
+createdb late_show_db
+flask db init
+flask db migrate -m "Initial migration"
+flask db upgrade
+Seed the Database
+
+python3 -m server.seed
+Run the App
+
+flask run
+Runs on: http://localhost:5000
+
+ Authentication Flow
+Register
+
+POST /register
+Body:
 
 
 {
-  "username": "your_username",
-  "password": "your_password"
+  "username": "yourname",
+  "password": "yourpassword"
 }
-Response returns a JSON Web Token (JWT):
+Login
+
+POST /login
+Body:
+
+
+{
+  "username": "yourname",
+  "password": "yourpassword"
+}
+Response:
 
 
 {
   "token": "your_jwt_token"
 }
-Token Usage
-Use the token to access protected routes by including it in the Authorization header:
 
-
-
+Authenticated Requests
+Use this header in protected routes:
 Authorization: Bearer your_jwt_token
+  API Routes
+Method	Endpoint	Description	Auth Required
+POST	/register	Register new user	
+POST	/login	Login + JWT	
+GET	/episodes	List all episodes	
+GET	/episodes/<id>	Get episode by ID	
+GET	/guests	List all guests
+GET	/guests/<id>	Get guest by ID	
 
---
-API Routes
-Method	Route	Description	Protected?
-POST	/register	Register a new user	No
-POST	/login	Login and get token	No
-GET	/episodes	List all episodes	Yes
-GET	/guests	List all guests	Yes
-GET	/episodes/<id>	Get episode details	Yes
-GET	/guests/<id>	Get guest details	Yes
-
---
-Sample Request/Response
-GET /episodes
-
-Request header:
+Example: GET /episodes
+Header:
 
 
 Authorization: Bearer your_jwt_token
 Response:
 
+
 [
   {
     "id": 1,
-    "date": "2025-06-26",
-    "number": 45,
+    "date": "2023-06-01",
+    "number": 177,
     "appearances": [
       {
-        "id": 10,
-        "rating": 4,
-        "guest_id": 5
+        "id": 1,
+        "rating": 5,
+        "guest": {
+          "id": 1,
+          "name": "Kimutai Ryan",
+          "occupation": "Artist"
+        }
       }
     ]
-  },
-  ...
+  }
 ]
