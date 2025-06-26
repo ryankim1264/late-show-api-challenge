@@ -2,19 +2,14 @@ Late Show API Challenge
 
 A Flask-based RESTful API for managing late night talk show guests, episodes, and appearances.
 
----
-
-## Setup Instructions
-
-### Prerequisites
-
-- Python 3.8+
-- PostgreSQL
-- pip (Python package manager)
-
-### Clone the Repo
 
 ```bash
+
+
+## Setup Instruction
+### Clone the Repo
+
+
 git clone https://github.com/yourusername/late-show-api-challenge.git
 cd late-show-api-challenge
 
