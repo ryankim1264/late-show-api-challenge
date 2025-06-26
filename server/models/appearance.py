@@ -1,4 +1,4 @@
-from ..app import db
+from server.extentions import db
 
 class Appearance(db.Model):
     __tablename__ = 'appearances'
@@ -14,3 +14,11 @@ class Appearance(db.Model):
         if not (1 <= value <= 5):
             raise ValueError("Rating must be between 1 and 5")
         return value
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "rating": self.rating,
+            "guest_id": self.guest_id,
+            "episode_id": self.episode_id
+        }

@@ -1,0 +1,107 @@
+Late Show API Challenge
+Setup Instructions
+Prerequisites
+PostgreSQL
+Install PostgreSQL and ensure it is running on your machine.
+Download PostgreSQL
+
+Virtual Environment (recommended)
+Create and activate a virtual environment:
+
+
+python3 -m venv venv
+
+
+How to Run
+Install Dependencies
+
+pip install -r requirements.txt
+Database Setup
+Create the database in PostgreSQL (if not created):
+
+
+createdb late_show_db
+Run migrations:
+
+flask db upgrade
+Seed the database with initial data:
+
+
+python3 -m server.seed
+Run the Flask App
+
+flask run
+The app will run on http://localhost:5000 .
+
+--
+
+Authentication Flow
+Register
+POST /register
+Request Body:
+
+
+
+{
+  "username": "your_username",
+  "password": "your_password"
+}
+
+---
+Login
+POST /login
+Request Body:
+
+
+{
+  "username": "your_username",
+  "password": "your_password"
+}
+Response returns a JSON Web Token (JWT):
+
+
+{
+  "token": "your_jwt_token"
+}
+Token Usage
+Use the token to access protected routes by including it in the Authorization header:
+
+
+
+Authorization: Bearer your_jwt_token
+
+--
+API Routes
+Method	Route	Description	Protected?
+POST	/register	Register a new user	No
+POST	/login	Login and get token	No
+GET	/episodes	List all episodes	Yes
+GET	/guests	List all guests	Yes
+GET	/episodes/<id>	Get episode details	Yes
+GET	/guests/<id>	Get guest details	Yes
+
+--
+Sample Request/Response
+GET /episodes
+
+Request header:
+
+
+Authorization: Bearer your_jwt_token
+Response:
+
+[
+  {
+    "id": 1,
+    "date": "2025-06-26",
+    "number": 45,
+    "appearances": [
+      {
+        "id": 10,
+        "rating": 4,
+        "guest_id": 5
+      }
+    ]
+  },
+  ...
+]

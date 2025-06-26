@@ -1,4 +1,4 @@
-from ..app import db
+from server.extentions import db
 
 class Episode(db.Model):
     __tablename__ = 'episodes'
@@ -8,3 +8,11 @@ class Episode(db.Model):
     number = db.Column(db.Integer, nullable=False)
 
     appearances = db.relationship('Appearance', backref='episode', cascade='all, delete-orphan')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'date': self.date.isoformat(), 
+            'number': self.number,
+            'appearances': [appearance.to_dict() for appearance in self.appearances]
+        }
