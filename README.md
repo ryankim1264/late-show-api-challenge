@@ -1,5 +1,10 @@
-Late Show API Challenge
-Setup Instructions
+LATE SHOW API
+
+This is a backend flask appliction for a late Night Tv show system.
+
+SETUP INSTRUCTIONS
+
+
 Prerequisites
 PostgreSQL
 Install PostgreSQL and ensure it is running on your machine.
